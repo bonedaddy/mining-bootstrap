@@ -1,0 +1,11 @@
+[Unit]
+# do not start until sshd is started
+After=sshd.service
+
+[Service]
+# specify the script to run
+ExecStart=/boot_scripts/runOnBoot.sh
+
+[Install]
+# specify that we want this to  be ran by the default boot target
+WantedBy=default.target
