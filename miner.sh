@@ -4,10 +4,14 @@
 # Version: 0.0.1alpha
 # Description: Script is used to launch ccminer, and provide configurable variabels for easy management
 
+bootDir="/boot_scripts"
+runmode="$1"
 rigName="$(hostname)"
-poolUrl="stratum+tcp://hub.miningpoolhub.com:20507"
-poolUser="postables.$rigName"
-poolPassword="password"
-minerAlgo="lyra2v2"
+suprnovaurl="suprnova.cc"
+suprnovazdashport=4048
+suprnovauser=.....
+suprnovapassword=....
 
-ccminer --url="$poolUrl" --user "$poolUser" --pass "$poolPassword" --algo="$minerAlgo"
+if [[ "$runmode" -eq "hush" || "$runmode" -eq "zdash" ]]; then
+	"$bootdir"/miner --server "zdash.$suprnovaurl:suprnovazdashport" --user "suprnova.rigName" --pass "$suprnovapassword"
+fi
