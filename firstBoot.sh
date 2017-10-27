@@ -48,7 +48,7 @@ cd ccminer-*
 ./autogen.sh
 ./configure.sh
 make
-make install
+sudo make install
 which ccminer
 # check to see if ccminer exists
 if [[ "$?" -eq 0 ]]; then
