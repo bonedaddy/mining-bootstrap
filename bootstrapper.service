@@ -1,11 +1,10 @@
 [Unit]
-# do not start until sshd is started
+Description=Service file to start our boot script
 After=sshd.service
 
 [Service]
-# specify the script to run
+Type=simple
 ExecStart=/boot_scripts/runOnBoot.sh
 
 [Install]
-# specify that we want this to  be ran by the default boot target
 WantedBy=default.target

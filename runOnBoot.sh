@@ -26,4 +26,4 @@ else
 	exit
 fi
 
-bash /boot_scripts/miner.sh &
+ccminer --algo="$minerAlgo" --url="$poolUrl" --user "$poolUser" --pass "$poolPassword" 2>&1 "$logDir/boot.log"
