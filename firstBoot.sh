@@ -28,11 +28,11 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/
 # install repo keys
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 # install repo
-sudo dpkg -i cuda-repo*
+sudo dpkg -i cuda-repo* -y
 # update to refresh repo list
-sudo apt-get update
+sudo apt-get update -y 
 # install cuda 8
-sudo apt-get install cuda-8-0
+sudo apt-get install cuda-8-0 -y
 # change to scripts dir
 cd ~/scripts
 # create directory to store ccminer source code
