@@ -30,31 +30,6 @@ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda
 # install repo
 sudo dpkg -i cuda-repo* -y
 # update to refresh repo list
-sudo apt-get update -y 
+sudo apt-get update -y
 # install cuda 8
 sudo apt-get install cuda-8-0 -y
-# change to scripts dir
-cd ~/scripts
-# create directory to store ccminer source code
-mkdir -p mining_software/ccminer
-cd mining_software/ccminer
-# grab ccminer source code
-wget https://github.com/djm34/ccminer-msvc2015/archive/v0.2.1.tar.gz
-# untar it
-tar zxvf v0.2.1.tar.gz
-# change to ccminer dir
-cd ccminer-*
-# start build procedure
-./autogen.sh
-./configure.sh
-make
-sudo make install
-which ccminer
-# check to see if ccminer exists
-if [[ "$?" -eq 0 ]]; then
-    echo "ccminer detected, installation procedure success"
-    echo "success" > ~/install_results.txt
-else
-    echo "ccminer not detected, installation procedure failure"
-    echo "failure" > ~/install_results.txt
-fi
