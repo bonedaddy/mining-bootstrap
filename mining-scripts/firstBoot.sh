@@ -1,5 +1,8 @@
 #! /bin/bash
 
+
+cudaVersion=8
+
 echo "[INFO] Ensure that you have installed the nvidia drivers first"
 
 # perform initial updates
@@ -31,5 +34,28 @@ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/
 sudo dpkg -i cuda-repo* -y
 # update to refresh repo list
 sudo apt-get update -y
-# install cuda 8
-sudo apt-get install cuda-8-0 -y
+mkdir /logs
+if [[ "$cudaVersion" -eq 8 ]]; then
+    # install cuda 
+    sudo apt-get install cuda-8-0 -y
+elif [[ "$cudaVersion" -eq 9 ]]; then
+    # install cuda
+    sudo apt-get install cuda-9-0 -y
+fi
+
+mkdir /tmp/ccminer_download
+cd /tmp/ccminer_download
+wget https://github.com/djm34/ccminer-msvc2015/archive/v0.2.1.tar.gz
+tar zxvf v0.2.1.tar.gz
+cd *
+./autogen.sh
+./configure.sh
+make
+sudo make install
+which ccminer
+if [[ "$?" -eq 0 ]]; then
+    echo "ccminer installed rebooting" > /dev/null
+    sudo reboot now
+else
+    echo "ccminer not installed"
+fi
