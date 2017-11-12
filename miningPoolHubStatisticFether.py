@@ -1,8 +1,9 @@
 from urllib.request import Request, urlopen
 import json
-# req = Request(url_template, headers={'User-Agent': 'Mozzila/5.0})
-# webpage = urlopen(req).read()
-# webpage
+
+# Author:       Postables
+# Version:      0.0.1alpha
+# Description:  Python module to fetch statistics from miningpoolhub designed to be called by PostablesMiningBot (Telegram bot)
 
 class MiningPoolHubStatistics():
 
@@ -12,7 +13,7 @@ class MiningPoolHubStatistics():
 
     def construct_url(self, _coin, _action, _api_key):
         self.constructed_url = url_template.format(coin=_coin, action=_action, api_key=_api_key)
-        return str(self.construced_url)
+        return self.construced_url
 
     def fetch_data(self, _coin, _action, _api_key):
         formatted_url = construct_url(_coin, _action, _api_key)
@@ -20,9 +21,44 @@ class MiningPoolHubStatistics():
         json_object = json.load(urlopen(request_data))
         return json_object[action]['data']
 
-    def retrieve_recent_credits(self, _coin, _api_key):
+    def get_recent_credits(self, _coin, _api_key):
         # covers the previous two weeks
         data = fetch_data(_coin, 'getdashboarddata', _api_key)
         recent_credits = data['recent_credits']
         for i in recent_credits:
             print(i['amount'])
+    
+    def get_hashrate(self, _coin, _api_key):
+        data = fetch_data(_coin, 'getdashboarddata', _api_key)
+        hash_rate = data['personal']['hashrate']
+        return hash_rate
+
+    def get_user_workers(self, _coin, _api_key):
+        data = fetch_data(coin, 'getuserworkers', _api_key)
+        return data
+
+    def get_offline_workers(self, _coin, _api_key):
+        data = get_user_workers(_coin, _api_key)
+        offline_workers = []
+        for i in range(0, len(data)):
+            if data[i]['hashrate'] == 0:
+                first_half, second_half = data[i]['username'].split('.')
+                offline_workers.append(second_half)
+        if len(offline_workers) > 0:
+            msg = ''
+            for i in offline_workers:
+                msg += '%s ' % i
+        final_msg = "The following rigs are offline:\n" % msg
+        return final_msg
+        
+    def get_user_status(self, _coin, _api_key):
+        data = fetch_data(_coin, 'getusersatus', _api_key)
+        return data
+
+    def get_valid_shares(self, _coin, _api_key):
+        data = get_user_status(_coin, _api_key)
+        return data['valid']
+
+    def get_invalid_shares(self, _coin, _api_key):
+        data = get_user_status(_coin, _api_key)
+        return data['invalid']
