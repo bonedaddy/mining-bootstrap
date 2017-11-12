@@ -19,3 +19,10 @@ class MiningPoolHubStatistics():
         request_data = Request(formatted_url, headers={'User-Agent': '%s' % self.user_agent})
         json_object = json.load(urlopen(request_data))
         return json_object[action]['data']
+
+    def retrieve_recent_credits(self, _coin, _api_key):
+        # covers the previous two weeks
+        data = fetch_data(_coin, 'getdashboarddata', _api_key)
+        recent_credits = data['recent_credits']
+        for i in recent_credits:
+            print(i['amount'])
