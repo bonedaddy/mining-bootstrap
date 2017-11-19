@@ -14,6 +14,9 @@ report_file = 'report.txt'
 vtcPerDay = {}
 usdPerDay = {}
 
+# prices.txt format:
+# date, price
+
 with open(input_csv) as fh:
     for line in fh.readlines():
         if re.search('2017', line):
