@@ -15,7 +15,8 @@ supported_modes = ['--recent-credits']
 
 if mode == '--recent-credits':
         recent_credits_dict = m.get_recent_credits(coin, api_key)
-
+        # lets invert the dictionary
+        dict([(v, k) for k, v in recent_credits_dict.iteritems()])
         csv_header = "date,amount,usd value"
         with open('output.csv', 'a') as fh:
                 fh.write('%s\n' % csv_header)
