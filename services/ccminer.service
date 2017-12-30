@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts the ccminer
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/tmp/ccminer.pid
+ExecStart=/boot_scripts/ccminer.sh
+
+[Install]
+WantedBy=multi-user.target
