@@ -5,7 +5,7 @@
 grep 'APT::Periodic::Update-Package-Lists "1";' /etc/apt/apt.conf.d/10periodic
 if [[ "$?" -eq 0 ]]; then
 	# auto updates enabled so we need to disable
-	sed -i 's/'APT::Periodic::Update-Package-Lists "1";'/'APT::Periodic::Update-Package-Lists "0";'/g' /etc/apt/apt.conf.d/10periodic
+	sudo sed -i 's/1/0/g' /etc/apt/apt.conf.d/10periodic
 fi
 
 
