@@ -1,0 +1,10 @@
+- hosts: all
+  user: rtrade
+  sudo: true
+  tasks:
+    - name: copy script
+      copy:
+         src: scripts/check_auto_updates.sh
+         dest: /home/rtrade/check_auto_updates.sh
+    - name: execute script
+      command: /bin/bash /home/rtrade/check_auto_updates.sh
