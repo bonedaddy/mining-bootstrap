@@ -1,10 +1,18 @@
-git clone https://github.com/postables/mining-bootstrap.git
-cd mining-bootstrap
-tar xvf temp.tar
-cd temp
-cp scripts/* /boot_scripts
-chmod a_x /boot_scripts/*.sh
-sudo cp services/*.service /etc/systemd/system
-sudo systemctl enable /etc/systemd/system/ccminer.service
-sudo systemctl enable /etc/systemd/system/miner.service
-sudo reboot now
+#! /bin/bash
+
+# make boot script dir
+sudo mkdir /boot_scripts
+# set permissinos
+sudo chmod a+rw /boot_scripts
+# set the services
+cd /home/rtrade
+cp /home/rtrade/mining-bootstrap/services.tar .
+tar xvf services.tar
+sudo cp services/*.service /etc/systemd/
+sudo cp /home/rtrade/ethminer.sh /boot_scripts
+
+# uncomment depending on whether or not you want
+# to setup any services
+# sudo systemctl enable ccminer.service
+# sudo systemctl enable miner.service
+# sudo systemctl enable ethminer.service

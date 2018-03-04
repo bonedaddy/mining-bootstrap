@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts the ethminer service
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/tmp/ethminer.pid
+ExecStart=/boot_scripts/ethminer.sh
+
+[Install]
+WantedBy=multi-user.target

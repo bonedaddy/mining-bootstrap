@@ -1,0 +1,17 @@
+# this playbook is used to copy all files to the hosts
+- hosts: "{{ host }}"
+  user: rtrade
+  sudo: true
+  tasks:
+      - name: copy install script
+        copy:
+            src: scripts/install.sh
+            dest: /home/rtrade/install.sh
+      - name: copy ethminer package
+        copy:
+            src: packages/ethminer-0.14.0.dev1-Linux.tar.gz
+            dest: /home/rtrade/ethminer.tar.gz
+      - name: copy service files
+        copy:
+            src: tarballs/services.tar
+            dest: /home/rtrade/services.tar
