@@ -1,6 +1,0 @@
-- hosts: "{{ host_group }}"
-  user: "{{ user_name }}"
-  sudo: true
-  tasks:
-    - name: install zabbix server
-      command: /bin/bash /tmp/zabbix_repo_install.sh

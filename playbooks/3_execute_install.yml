@@ -1,8 +1,0 @@
-- hosts: "{{ host }}"
-  user: rtrade
-  sudo: true
-  tasks:
-    - name: execute install
-      command: /bin/bash /home/rtrade/install.sh
-    - name: execute eth miner setup
-      command: /bin/bash /home/rtrade/eth_miner_setup.sh
