@@ -1,0 +1,6 @@
+- hosts: "{{ host }}"
+  user: rtrade
+  sudo: true
+  tasks:
+    - name: restart thte node
+      command: reboot now
