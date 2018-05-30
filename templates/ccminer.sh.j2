@@ -1,8 +1,0 @@
-#! /bin/bash
-
-# author: postables
-# version: 1.0.1
-# description .sh: ccminer script used to mine any algorithm supported by the current ccminer version
-# description .j2: ccminer template used by ansible
-
-/usr/local/bin/ccminer --algo="{{ ccminer_algo }}" --url="{{ ccminer_url }}":"{{ ccminer_port }}" --user=postables."$(hostname)" --pass=password --devices=0,1,2,3,4,5
