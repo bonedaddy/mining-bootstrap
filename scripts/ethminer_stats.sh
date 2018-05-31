@@ -7,6 +7,13 @@ case "$1" in
     miner_getstat1)
         echo '{"id":17,"jsonrpc":"2.0","method":"miner_getstat1"}'  |  netcat "$2" 6767
         ;;
+    hashes)
+        echo '{"id":17,"jsonrpc":"2.0","method":"miner_getstat1"}'  |  netcat "$2" 6767 | awk '{print $1}' | awk -F ',' '{print $5}' | tr -d '"' | awk -F ';' '{print $1}'
+        ;;
+    megahashes)
+        hashes=$(echo '{"id":17,"jsonrpc":"2.0","method":"miner_getstat1"}'  |  netcat "$2" 6767 | awk '{print $1}' | awk -F ',' '{print $5}' | tr -d '"' | awk -F ';' '{print $1}')
+        echo $((hashes / 1000))
+        ;;
 esac
 
 
