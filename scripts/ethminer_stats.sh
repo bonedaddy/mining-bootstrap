@@ -1,6 +1,8 @@
 #! /bin/bash
 
 
+#  Used primarily by zabbix agent to parse the ethminer api into a consumable format
+API_PORT="6767"
 
 case "$1" in 
 
@@ -14,10 +16,19 @@ case "$1" in
         hashes=$(echo '{"id":17,"jsonrpc":"2.0","method":"miner_getstat1"}'  |  netcat "$2" 6767 | awk '{print $1}' | awk -F ',' '{print $5}' | tr -d '"' | awk -F ';' '{print $1}')
         echo $((hashes / 1000))
         ;;
+    *)
+        echo "Invalid invocation"
+        echo "./ethminer_stats.sh [miner_getstat1 | hashes | megahashes] <host-ip>"
+        exit 1
+        ;;
 esac
 
 
-###
+
+
+
+
+### API output from miner_getstat1
 #"9.3 - ETH"				- miner version.
 #"21"					- running time, in minutes.
 #"182724"				- total ETH hashrate in MH/s, number of ETH shares, number of ETH rejected shares.
