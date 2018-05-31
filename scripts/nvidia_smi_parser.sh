@@ -24,12 +24,20 @@ get_temp() {
     echo "$TEMP"
 }
 
+get_power_draw() {
+    DRAW=$(nvidia-smi -q -i "$1" | grep -i "Power Draw" | awk -F ':' '{print $2}' | awk '{print $1}')
+    echo "$DRAW"
+}
 
 case "$QUERY_MODE" in 
 
     # query is for GPU temp
     temp) 
         get_temp "$SELECTED_GPU_NUMBER"
+        ;;
+
+    draw)
+        get_power_draw "$SELECTED_GPU_NUMBER"
         ;;
 
 esac            

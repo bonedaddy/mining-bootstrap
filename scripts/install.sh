@@ -18,7 +18,8 @@ tar zxvf ethminer-0.15.0.dev11-Linux.tar.gz
 # make out boot script directory
 sudo mkdir /boot_scripts
 sudo cp -r bin /boot_scripts
-
-
+sudo cp scripts/nvidia_smi_parser.sh /boot_scripts
+sudo cp scripts/ethminer_*.sh /boot_scripts
+sudo chmod a+x /boot_scripts/*.sh
 
 
