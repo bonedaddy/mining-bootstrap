@@ -9,23 +9,24 @@ QUERY_MODE="$1"
 SELECTED_GPU_NUMBER="$2"
 # cleans up output from list-gpu into an iterable format
 GPU_NUMBERS=$(nvidia-smi --list-gpus | awk '{print $2}' | tr -d ':')
-COUNT=0
+# retrieves the total number of GPUs
+GPU_COUNT=$(nvidia-smi --query-gpu=count --format=csv,noheader)
 
 # make sure that a non-empty parameter was given
 if [[ "$SELECTED_GPU_NUMBER" == "" ]]; then
     echo "[ERROR] No valid gpu number provided"
+        echo "Invalid invocation"
+        echo "./nvidia_smi_parser.sh [temp | draw | fan_speed | gpu_utilization_percent| mem_utilization_percent | gpu_clock_mhz]  <gpu-number>"
     exit 1
 fi
 
-# will loop for 100 counts unless a valid GPU number is given
-# TODO: this needs to be cleaned up to ensure that the number given is in a valid range
-# from that provided by GPU_NUMBERS
-while true; do
-    if [[ "$SELECTED_GPU_NUMBER" -eq "$COUNT" ]]; then
-        break
-    fi
-    let COUNT++
-done
+# we need to compare against 1 below maximum since gpu is indexed starting at 0
+if [[ "$SELECTED_GPU_NUMBER" -gt $(($(echo "$GPU_COUNT") - 1)) ]]; then
+    echo "[ERROR] provided gpu number greater than gpu count"
+        echo "Invalid invocation"
+        echo "./nvidia_smi_parser.sh [temp | draw | fan_speed | gpu_utilization_percent| mem_utilization_percent | gpu_clock_mhz]  <gpu-number>"
+    exit 1
+fi
 
 # function used to retrieve the temperature of a gpu
 get_temp() {
@@ -39,6 +40,25 @@ get_power_draw() {
     echo "$DRAW"
 }
 
+get_fan_speed() {
+    SPEED=$(nvidia-smi -i "$1" --query-gpu=fan.speed --format=csv,noheader)
+    echo "$SPEED"
+}
+
+get_gpu_utilization_percent() {
+    PERCENT=$(nvidia-smi -i "$1" --query-gpu=utilization.gpu --format=csv,noheader)
+    echo "$PERCENT" | tr -d '%'
+}
+
+get_memory_utilization_percent() {
+    PERCENT=$(nvidia-smi -i "$1" --query-gpu=utilization.memory --format=csv,noheader)
+    echo "$PERCENT" | tr -d '%'
+}
+
+get_gpu_clock_mhz() {
+   CLOCK=$(nvidia-smi -i "$1" -d CLOCK -q | grep '^    Clocks$' -A 4 | sed '1d' | grep Graphics  | awk -F ':' '{print $2}' | awk '{print $1}')
+   echo "$CLOCK"
+}
 case "$QUERY_MODE" in 
 
     # query is for GPU temp
@@ -49,9 +69,28 @@ case "$QUERY_MODE" in
     draw)
         get_power_draw "$SELECTED_GPU_NUMBER"
         ;;
+    fan_speed)
+	get_fan_speed "$SELECTED_GPU_NUMBER"
+	;;
+    gpu_utilization_percent)
+	get_gpu_utilization_percent "$SELECTED_GPU_NUMBER"
+        ;;
+    mem_utilization_percent)
+	get_memory_utilization_percent "$SELECTED_GPU_NUMBER"
+        ;;
+    gpu_clock_mhz)
+        get_gpu_clock_mhz "$SELECTED_GPU_NUMBER"
+        ;;
     *)
         echo "Invalid invocation"
-        echo "./nvidia_smi_parser.sh [temp | draw] <gpu-number>"
+        echo "./nvidia_smi_parser.sh [temp | draw | fan_speed | gpu_utilization_percent| mem_utilization_percent | gpu_clock_mhz]  <gpu-number>"
         exit 1
         ;;
 esac            
+
+
+
+
+# Useful information
+# To retrieve the current clocks
+# nvidia-smi -i 0 -d CLOCK -q | grep '^    Clocks$' -A 4 | sed '1d
