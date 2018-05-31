@@ -21,3 +21,8 @@ tar zxvf ethminer-0.15.0.dev11-Linux.tar.gz
 # make out boot script directory
 sudo mkdir /boot_scripts
 sudo cp -r bin /boot_scripts
+
+# install updates
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update -y
+sudo apt-get upgrade -y
