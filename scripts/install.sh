@@ -21,5 +21,10 @@ sudo cp -r bin /boot_scripts
 sudo cp scripts/nvidia_smi_parser.sh /boot_scripts
 sudo cp scripts/ethminer_*.sh /boot_scripts
 sudo chmod a+x /boot_scripts/*.sh
-
-
+sudo cp service_files/ethminer.service /etc/systemd/system
+sudo systemctl enable ethminer.service
+echo "[INFO] Sleeping for 20 seconds then rebooting"
+echo "[INFO] Hit CTRL+C to cancel the script and stop reboot"
+sleep 20
+echo "[INFO] Rebooting now...."
+sudo reboot now
