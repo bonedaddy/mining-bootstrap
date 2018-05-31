@@ -15,6 +15,7 @@ while true; do
     if [[ "$SELECTED_GPU_NUMBER" -eq "$COUNT" ]]; then
         break
     fi
+    let COUNT++
 done
 
 
