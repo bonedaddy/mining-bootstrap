@@ -2,6 +2,7 @@
 
 # install that cuda goodness baby
 cd ~
+git clone git@github.com:RTradeLtd/mining-bootstrap.git
 # download cuda 9
 wget https://developer.nvidia.com/compute/cuda/9.2/Prod/local_installers/cuda-repo-ubuntu1604-9-2-local_9.2.88-1_amd64
 sudo dpkg -i cuda-repo-ubuntu1604-9-2-local_9.2.88-1_amd64
@@ -18,10 +19,10 @@ tar zxvf ethminer-0.15.0.dev11-Linux.tar.gz
 # make out boot script directory
 sudo mkdir /boot_scripts
 sudo cp -r bin /boot_scripts
-sudo cp scripts/nvidia_smi_parser.sh /boot_scripts
-sudo cp scripts/ethminer_*.sh /boot_scripts
+sudo cp /home/rtrade/mining-bootstrap/scripts/nvidia_smi_parser.sh /boot_scripts
+sudo cp /home/rtrade/mining-bootstrap/scripts/ethminer_*.sh /boot_scripts
 sudo chmod a+x /boot_scripts/*.sh
-sudo cp service_files/ethminer.service /etc/systemd/system
+sudo cp /home/rtrade/mining-bootstrap/service_files/ethminer.service /etc/systemd/system
 sudo systemctl enable ethminer.service
 echo "[INFO] Sleeping for 20 seconds then rebooting"
 echo "[INFO] Hit CTRL+C to cancel the script and stop reboot"
