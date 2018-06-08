@@ -1,0 +1,15 @@
+- hosts: mining_rigs
+  become: true
+  become_method: sudo
+  tasks:
+  - name: system update, equivalent to "apt-get update"
+    apt:
+       update_cache: yes
+  - name: upgrade packages to latest version
+    apt:
+       name: "*"
+       state: latest
+  - name: run dist upgrade
+    apt:
+       upgrade: dist
+  - name: copy nvidia install
