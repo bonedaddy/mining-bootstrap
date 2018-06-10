@@ -1,9 +1,0 @@
-- hosts: all
-
-  tasks:
-          -name: copy script
-           copy:
-                   src: scripts/install.sh
-                   dst: /home/rtrade/install.sh
-          -name: execute script
-           command: /bin/bash /home/rtrade/install.sh
