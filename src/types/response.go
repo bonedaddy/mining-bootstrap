@@ -1,6 +1,6 @@
 package types
 
-type GetDashboardData struct {
+type MiningPoolHubAPIResponse struct {
 	Version string                 `json:"version"`
 	Runtime float64                `json:"runtime"`
 	Data    map[string]interface{} `json:"data"`
@@ -144,4 +144,107 @@ type GetDashboardData struct {
             }
         }
     }
-}*/
+}
+
+
+
+{
+    "getuserworkers": {
+        "version": "1.0.0",
+        "runtime": 186.67006492615,
+        "data": [
+            {
+                "id": 15807822,
+                "username": "postables.rig01",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 320111.129,
+                "difficulty": 0
+            },
+            {
+                "id": 15684531,
+                "username": "postables.rig02",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 391180.571,
+                "difficulty": 0
+            },
+            {
+                "id": 15689897,
+                "username": "postables.rig03",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 0,
+                "difficulty": 0
+            },
+            {
+                "id": 15697746,
+                "username": "postables.rig04",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 0,
+                "difficulty": 0
+            },
+            {
+                "id": 15684662,
+                "username": "postables.rig05",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 358333.349,
+                "difficulty": 0
+            },
+            {
+                "id": 15684672,
+                "username": "postables.rig06",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 438361.122,
+                "difficulty": 0
+            },
+            {
+                "id": 15697741,
+                "username": "postables.rig07",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 319513.904,
+                "difficulty": 0
+            },
+            {
+                "id": 15697754,
+                "username": "postables.rig08",
+                "password": "x",
+                "monitor": 1,
+                "hashrate": 0,
+                "difficulty": 0
+            }
+        ]
+    }
+}
+
+
+{
+    "getuserstatus": {
+        "version": "1.0.0",
+        "runtime": 881.93893432617,
+        "data": {
+            "username": "postables",
+            "shares": {
+                "valid": 145065.79089355,
+                "valid1": 1121.3124084473,
+                "valid2": 0,
+                "valid3": 0,
+                "valid4": 0,
+                "valid5": 0,
+                "valid6": 0,
+                "invalid": 0,
+                "id": 142320,
+                "donate_percent": 0,
+                "is_anonymous": 1,
+                "username": "postables"
+            },
+            "hashrate": 1698500.071,
+            "sharerate": 0
+        }
+    }
+}
+*/

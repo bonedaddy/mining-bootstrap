@@ -1,9 +1,13 @@
 package reports
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/config"
+	"github.com/RTradeLtd/mining-bootstrap/src/types"
 )
 
 /*
@@ -33,8 +37,30 @@ func GenerateReportManager(coin, apikey string) (*Manager, error) {
 }
 
 func (m *Manager) GetRecentCredits() error {
-	url := fmt.Sprintf(m.Config.URL, m.Config.Coin, "getdashboarddata", m.Config.APIKey)
-	fmt.Println(url)
+	m.FormatURL("getdashboarddata")
+	resp, err := http.Get(m.Config.URL)
+	if err != nil {
+		return err
+	}
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	var intf map[string]interface{}
+	var data types.MiningPoolHubAPIResponse
+	err = json.Unmarshal(bodyBytes, &intf)
+	if err != nil {
+		return err
+	}
+	marshaled, err := json.Marshal(intf["getdashboarddata"])
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(marshaled, &data)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v\n", data.Data["recent_credits"])
 	return nil
 }
 

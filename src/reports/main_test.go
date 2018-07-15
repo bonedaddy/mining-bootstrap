@@ -1,16 +1,23 @@
 package reports_test
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"testing"
 
 	"github.com/RTradeLtd/mining-bootstrap/src/reports"
-	"github.com/RTradeLtd/mining-bootstrap/src/types"
 )
 
+func TestManager(t *testing.T) {
+	manager, err := reports.GenerateReportManagerFromFile()
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = manager.GetRecentCredits()
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+/*
 func TestManager(t *testing.T) {
 	manager, err := reports.GenerateReportManagerFromFile()
 	if err != nil {
@@ -29,7 +36,7 @@ func TestManager(t *testing.T) {
 		t.Fatal(err)
 	}
 	var intf map[string]interface{}
-	var data types.GetDashboardData
+	var data types.MiningPoolHubAPIResponse
 	err = json.Unmarshal(body, &intf)
 	if err != nil {
 		t.Fatal(err)
@@ -44,3 +51,4 @@ func TestManager(t *testing.T) {
 	}
 	fmt.Printf("%+v\n", data.Data["recent_credits"])
 }
+*/
