@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/config"
-	"github.com/RTradeLtd/mining-bootstrap/src/types"
+	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
 )
 
 /*
