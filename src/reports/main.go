@@ -36,32 +36,41 @@ func GenerateReportManager(coin, apikey string) (*Manager, error) {
 	return &Manager{Config: cfg}, nil
 }
 
-func (m *Manager) GetRecentCredits() error {
-	m.FormatURL("getdashboarddata")
+func (m *Manager) GetRecentCredits() (*[]types.RecentCredits, error) {
+	s := "getdashboarddata"
+	m.FormatURL(s)
 	resp, err := http.Get(m.Config.URL)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	var intf map[string]interface{}
 	var data types.MiningPoolHubAPIResponse
 	err = json.Unmarshal(bodyBytes, &intf)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	marshaled, err := json.Marshal(intf["getdashboarddata"])
+	marshaled, err := json.Marshal(intf[s])
 	if err != nil {
-		return err
+		return nil, err
 	}
 	err = json.Unmarshal(marshaled, &data)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	fmt.Printf("%+v\n", data.Data["recent_credits"])
-	return nil
+	marshaled, err = json.Marshal(data.Data["recent_credits"])
+	if err != nil {
+		return nil, err
+	}
+	var credits []types.RecentCredits
+	err = json.Unmarshal(marshaled, &credits)
+	if err != nil {
+		return nil, err
+	}
+	return &credits, nil
 }
 
 func (m *Manager) FormatURL(action string) {

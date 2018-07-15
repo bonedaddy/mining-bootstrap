@@ -6,6 +6,17 @@ type MiningPoolHubAPIResponse struct {
 	Data    map[string]interface{} `json:"data"`
 }
 
+type RecentCredits struct {
+	Date   string  `json:"date"`
+	Amount float64 `json:"amount"`
+}
+
+/*
+   "recent_credits": [
+       {
+           "date": "2018-07-15",
+           "amount": 0.02531947
+*/
 /*
 {
     "getdashboarddata": {
