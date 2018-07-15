@@ -1,6 +1,11 @@
 #! /bin/bash
 
 # install that cuda goodness baby
+
+if [[ "$(echo $(which git))" -eq "" ]]; then
+    sudo apt install git -y
+fi
+
 cd ~
 git clone git@github.com:RTradeLtd/mining-bootstrap.git
 # download cuda 9
