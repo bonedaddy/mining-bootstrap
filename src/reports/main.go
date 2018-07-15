@@ -1,6 +1,10 @@
 package reports
 
-import "github.com/RTradeLtd/mining-bootstrap/src/reports/config"
+import (
+	"fmt"
+
+	"github.com/RTradeLtd/mining-bootstrap/src/reports/config"
+)
 
 /*
 This is used to handle automated mining reports for cryptocurrency mining farms
@@ -26,4 +30,14 @@ func GenerateReportManager(coin, apikey string) (*Manager, error) {
 		return nil, err
 	}
 	return &Manager{Config: cfg}, nil
+}
+
+func (m *Manager) GetRecentCredits() error {
+	url := fmt.Sprintf(m.Config.URL, m.Config.Coin, "getdashboarddata", m.Config.APIKey)
+	fmt.Println(url)
+	return nil
+}
+
+func (m *Manager) FormatURL(action string) {
+	m.Config.URL = fmt.Sprintf(m.Config.URL, m.Config.Coin, action, m.Config.APIKey)
 }
