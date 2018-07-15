@@ -8,7 +8,7 @@ import (
 )
 
 func TestLoadConfig(t *testing.T) {
-	cfg, err := config.LoadConfig("")
+	cfg, err := config.LoadConfigFromFile("")
 	if err != nil {
 		t.Fatal(err)
 	}

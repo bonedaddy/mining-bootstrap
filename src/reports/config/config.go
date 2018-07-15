@@ -14,7 +14,7 @@ type Config struct {
 	APIKey string `json:"api_key"`
 }
 
-func LoadConfig(filePath string) (*Config, error) {
+func LoadConfigFromFile(filePath string) (*Config, error) {
 	if filePath == "" {
 		filePath = defaultFilePath
 	}
@@ -29,4 +29,13 @@ func LoadConfig(filePath string) (*Config, error) {
 		return nil, err
 	}
 	return &cfg, nil
+}
+
+func LoadConfig(coin, apiKey string) (*Config, error) {
+	cfg := &Config{
+		Coin:   coin,
+		URL:    urlTemplate,
+		APIKey: apiKey,
+	}
+	return cfg, nil
 }
