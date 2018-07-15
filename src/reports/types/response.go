@@ -11,6 +11,10 @@ type RecentCredits struct {
 	Amount float64 `json:"amount"`
 }
 
+type USDResponse struct {
+	Val float64 `json:"val"`
+}
+
 /*
    "recent_credits": [
        {
