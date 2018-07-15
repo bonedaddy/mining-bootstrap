@@ -38,7 +38,7 @@ class MiningPoolHubStatistics():
         return hash_rate
 
     def get_user_workers(self, _coin, _api_key):
-        data = self.fetch_data(coin, 'getuserworkers', _api_key)
+        data = self.fetch_data(_coin, 'getuserworkers', _api_key)
         return data
 
     def get_offline_workers(self, _coin, _api_key):
