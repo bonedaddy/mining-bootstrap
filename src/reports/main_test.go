@@ -13,6 +13,13 @@ import (
 
 var usdAPI = "https://free.currencyconverterapi.com/api/v5/convert?q=USD_CAD&compact=y"
 
+func TestCMC(t *testing.T) {
+	ethUSD, err := types.RetrieveEthUsdPrice()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(ethUSD)
+}
 func TestUSDAPI(t *testing.T) {
 	resp, err := http.Get(usdAPI)
 	if err != nil {

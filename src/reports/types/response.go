@@ -12,7 +12,7 @@ type RecentCredits struct {
 }
 
 type USDResponse struct {
-	Val float64 `json:"val"`
+	ExchangeRate float64 `json:"val"`
 }
 
 /*
