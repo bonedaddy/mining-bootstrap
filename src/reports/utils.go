@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
 )
@@ -17,7 +18,9 @@ func ParseETHUSD() (float64, error) {
 }
 
 func ParseUSDCAD() (float64, error) {
-	resp, err := http.Get(USDAPI)
+	client := http.DefaultClient
+	client.Timeout = time.Minute
+	resp, err := client.Get(USDAPI)
 	if err != nil {
 		return 0, err
 	}

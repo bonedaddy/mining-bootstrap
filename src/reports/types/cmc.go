@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 // Response used to hold response data from cmc
@@ -29,7 +30,9 @@ type Response struct {
 
 // RetrieveEthUsdPrice is used to retrieve eths usd pricing
 func RetrieveEthUsdPrice() (float64, error) {
-	response, err := http.Get("https://api.coinmarketcap.com/v1/ticker/ethereum/")
+	client := http.DefaultClient
+	client.Timeout = time.Minute
+	response, err := client.Get("https://api.coinmarketcap.com/v1/ticker/ethereum/")
 	if err != nil {
 		return float64(0), err
 	}

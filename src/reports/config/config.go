@@ -31,12 +31,3 @@ func LoadConfigFromFile(filePath string) (*Config, error) {
 	}
 	return &cfg, nil
 }
-
-func LoadConfig(coin, apiKey string) (*Config, error) {
-	cfg := &Config{
-		Coin:   coin,
-		URL:    urlTemplate,
-		APIKey: apiKey,
-	}
-	return cfg, nil
-}
