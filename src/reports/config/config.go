@@ -9,9 +9,10 @@ var urlTemplate = "https://%s.miningpoolhub.com/index.php?page=api&action=%s&api
 var defaultFilePath = "/home/solidity/mining_config.json"
 
 type Config struct {
-	Coin   string `json:"coin"`
-	URL    string `json:"url"`
-	APIKey string `json:"api_key"`
+	Coin           string `json:"coin"`
+	URL            string `json:"url"`
+	APIKey         string `json:"api_key"`
+	SendgridAPIKey string `json:"sendgrid_api_key"`
 }
 
 func LoadConfigFromFile(filePath string) (*Config, error) {
