@@ -65,7 +65,8 @@ func (m *Manager) CreateReportAndSend(method string) error {
 			return err
 		}
 		usdValue := credit.Amount * m.EthUSD
-		resp, err := m.Send24HourEmail(credit.Amount, usdValue)
+		cadValue := usdValue * m.UsdCad
+		resp, err := m.Send24HourEmail(credit.Amount, usdValue, cadValue)
 		if err != nil {
 			return err
 		}
@@ -158,11 +159,11 @@ func (m *Manager) FormatURL(action string) {
 	m.Config.URL = fmt.Sprintf(m.Config.URL, m.Config.Coin, action, m.Config.APIKey)
 }
 
-func (m *Manager) Send24HourEmail(ethMined, usdValue float64) (int, error) {
-	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v", ethMined, usdValue)
+func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue float64) (int, error) {
+	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v<br>CAD Value: %v", ethMined, usdValue, cadValue)
 	from := mail.NewEmail("stake-sendgrid-api", "sgapi@rtradetechnologies.com")
 	subject := "Ethereum Mining Report"
-	to := mail.NewEmail("Postables", "postables@rtradetechnologies.com")
+	to := mail.NewEmail("Mining Reports", "reports@rtradetechnologies.com")
 
 	mContent := mail.NewContent("text/html", content)
 	mail := mail.NewV3MailInit(from, subject, to, mContent)
