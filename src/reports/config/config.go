@@ -13,6 +13,9 @@ type Config struct {
 	URL            string `json:"url"`
 	APIKey         string `json:"api_key"`
 	SendgridAPIKey string `json:"sendgrid_api_key"`
+	DBURL          string `json:"db_url"`
+	DBUser         string `json:"db_user"`
+	DBPass         string `json:"db_pass"`
 }
 
 // LoadConfigFromFile is used to load our config from a file

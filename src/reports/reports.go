@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/config"
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
+	"github.com/jinzhu/gorm"
 	sendgrid "github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
@@ -30,6 +33,7 @@ type Manager struct {
 	EthUSD         float64          `json:"eth_usd"` // keeps track of the ETH->USD conversion ratio
 	UsdCad         float64          `json:"usd_cad"` // keeps track of the USD -> USD conversion ratio
 	SendgridClient *sendgrid.Client `json:"sendgrid_client"`
+	DB             *gorm.DB         `json:"db"`
 }
 
 // GenerateReportManagerFromFile is used to generate our helper struct from the config file
@@ -46,31 +50,43 @@ func GenerateReportManagerFromFile(path string) (*Manager, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Manager{Config: cfg, EthUSD: eth, UsdCad: usd, SendgridClient: sendgrid.NewSendClient(cfg.SendgridAPIKey)}, nil
+	dbm, err := Initialize(cfg.DBPass, cfg.DBURL, cfg.DBUser)
+	if err != nil {
+		return nil, err
+	}
+	err = dbm.RunMigrations()
+	if err != nil {
+		return nil, err
+	}
+	return &Manager{Config: cfg, EthUSD: eth, UsdCad: usd, SendgridClient: sendgrid.NewSendClient(cfg.SendgridAPIKey), DB: dbm.DB}, nil
 
 }
 
-// CreateReportAndSend is used to create and send a mining report
-func (m *Manager) CreateReportAndSend(method string) error {
-	switch method {
-	case "24hour_credit":
-		credit, err := m.GetRecentCredits24Hours()
-		if err != nil {
-			return err
-		}
-		usdValue := credit.Amount * m.EthUSD
-		cadValue := usdValue * m.UsdCad
-		resp, err := m.Send24HourEmail(credit.Amount, usdValue, cadValue)
-		if err != nil {
-			return err
-		}
-		if resp != 202 {
-			return fmt.Errorf("unacceptable return code, expected 200 got %v", resp)
-		}
-	case "credit":
-		return fmt.Errorf("not yet supported")
-	default:
-		return fmt.Errorf("invalid method must be one of %v", methodList)
+func (m *Manager) GetRecentCredits24HoursAndSave() error {
+	credit, err := m.GetRecentCredits24Hours()
+	if err != nil {
+		return err
+	}
+	year, month, day := time.Now().Date()
+	var date string
+	if int(month) < 10 {
+		date = fmt.Sprintf("%v-0%v-%v", year, int(month), day)
+	} else {
+		date = fmt.Sprintf("%v-%v-%v", year, int(month), day)
+	}
+	usdValue := credit.Amount * m.EthUSD
+	cadValue := usdValue * m.UsdCad
+	ethMinedString := strconv.FormatFloat(credit.Amount, 'f', 10, 64)
+	usdValueString := strconv.FormatFloat(usdValue, 'f', 2, 64)
+	cadValueString := strconv.FormatFloat(cadValue, 'f', 2, 64)
+	erm := types.NewEthReports(m.DB)
+	err = erm.AddNewEntry(date, ethMinedString, cadValueString, usdValueString)
+	if err != nil {
+		return err
+	}
+	_, err = m.Send24HourEmail(ethMinedString, usdValueString, cadValueString)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -157,11 +173,11 @@ func (m *Manager) FormatURL(action string) {
 }
 
 // Send24HourEmail is a function used to send report information for the last 24 hour period
-func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue float64) (int, error) {
+func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue string) (int, error) {
 	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v<br>CAD Value: %v", ethMined, usdValue, cadValue)
 	from := mail.NewEmail("stake-sendgrid-api", "sgapi@rtradetechnologies.com")
 	subject := "Ethereum Mining Report"
-	to := mail.NewEmail("Mining Reports", "reports@rtradetechnologies.com")
+	to := mail.NewEmail("Mining Reports", "postables@rtradetechnologies.com")
 
 	mContent := mail.NewContent("text/html", content)
 	mail := mail.NewV3MailInit(from, subject, to, mContent)

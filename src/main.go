@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		fmt.Println("CONFIG_PATH env variable not set, using default config path")
@@ -17,8 +18,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("generating 24 hour earnings report")
-	err = m.CreateReportAndSend("24hour_credit")
+	fmt.Println("generating 24 hour earnings report and saving to DB")
+	err = m.GetRecentCredits24HoursAndSave()
 	if err != nil {
 		log.Fatal(err)
 	}
