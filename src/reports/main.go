@@ -65,7 +65,7 @@ func (m *Manager) CreateReportAndSend(method string) error {
 			return err
 		}
 		usdValue := credit.Amount * m.EthUSD
-		resp, err := m.SendEmail(credit.Amount, usdValue)
+		resp, err := m.Send24HourEmail(credit.Amount, usdValue)
 		if err != nil {
 			return err
 		}
@@ -158,7 +158,7 @@ func (m *Manager) FormatURL(action string) {
 	m.Config.URL = fmt.Sprintf(m.Config.URL, m.Config.Coin, action, m.Config.APIKey)
 }
 
-func (m *Manager) SendEmail(ethMined, usdValue float64) (int, error) {
+func (m *Manager) Send24HourEmail(ethMined, usdValue float64) (int, error) {
 	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v", ethMined, usdValue)
 	from := mail.NewEmail("stake-sendgrid-api", "sgapi@rtradetechnologies.com")
 	subject := "Ethereum Mining Report"
@@ -167,6 +167,26 @@ func (m *Manager) SendEmail(ethMined, usdValue float64) (int, error) {
 	mContent := mail.NewContent("text/html", content)
 	mail := mail.NewV3MailInit(from, subject, to, mContent)
 
+	response, err := m.SendgridClient.Send(mail)
+	if err != nil {
+		return 0, err
+	}
+	return response.StatusCode, nil
+}
+
+func (m *Manager) SendTemplateEmail(args map[string]string) (int, error) {
+	content := args["content"]
+	contentType := args["content_type"]
+	fromName := args["from_name"]
+	fromEmail := args["from_email"]
+	subject := args["subject"]
+	toName := args["to_name"]
+	toEmail := args["to_email"]
+
+	from := mail.NewEmail(fromName, fromEmail)
+	to := mail.NewEmail(toName, toEmail)
+	mContent := mail.NewContent(contentType, content)
+	mail := mail.NewV3MailInit(from, subject, to, mContent)
 	response, err := m.SendgridClient.Send(mail)
 	if err != nil {
 		return 0, err
