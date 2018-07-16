@@ -15,16 +15,30 @@ This is used to handle automated mining reports for cryptocurrency mining farms
 The idea is to create an easy to use system that can be used by farm operators to create accurate book reports for the tax man
 */
 
+const (
+	USDAPI = "https://free.currencyconverterapi.com/api/v5/convert?q=USD_CAD&compact=y"
+)
+
 type Manager struct {
 	Config *config.Config `json:"config"`
+	EthUSD float64        `json:"eth_usd"` // keeps track of the ETH->USD conversion ratio
+	UsdCad float64        `json:"usd_cad"` // keeps track of the USD -> USD conversion ratio
 }
 
-func GenerateReportManagerFromFile() (*Manager, error) {
-	cfg, err := config.LoadConfigFromFile("")
+func GenerateReportManagerFromFile(path string) (*Manager, error) {
+	cfg, err := config.LoadConfigFromFile(path)
 	if err != nil {
 		return nil, err
 	}
-	return &Manager{Config: cfg}, nil
+	usd, err := ParseUSDCAD()
+	if err != nil {
+		return nil, err
+	}
+	eth, err := ParseETHUSD()
+	if err != nil {
+		return nil, err
+	}
+	return &Manager{Config: cfg, EthUSD: eth, UsdCad: usd}, nil
 
 }
 

@@ -13,7 +13,21 @@ import (
 
 var usdAPI = "https://free.currencyconverterapi.com/api/v5/convert?q=USD_CAD&compact=y"
 
+func TestReport(t *testing.T) {
+	manager, err := reports.GenerateReportManagerFromFile("")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%+v\n", manager)
+	creds, err := manager.GetRecentCredits()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%+v\n", creds)
+}
+
 func TestCMC(t *testing.T) {
+	t.Skip()
 	ethUSD, err := types.RetrieveEthUsdPrice()
 	if err != nil {
 		t.Fatal(err)
@@ -21,6 +35,7 @@ func TestCMC(t *testing.T) {
 	fmt.Println(ethUSD)
 }
 func TestUSDAPI(t *testing.T) {
+	t.Skip()
 	resp, err := http.Get(usdAPI)
 	if err != nil {
 		t.Fatal(err)
@@ -46,7 +61,8 @@ func TestUSDAPI(t *testing.T) {
 	fmt.Printf("%+v\n", val)
 }
 func TestManager(t *testing.T) {
-	manager, err := reports.GenerateReportManagerFromFile()
+	t.Skip()
+	manager, err := reports.GenerateReportManagerFromFile("")
 	if err != nil {
 		t.Fatal(err)
 	}
