@@ -3,7 +3,6 @@ package types
 import (
 	"encoding/json"
 	"io/ioutil"
-	"math/big"
 	"net/http"
 	"strconv"
 	"time"
@@ -28,7 +27,7 @@ type Response struct {
 	LastUpdate         string `json:"last_updated"`
 }
 
-// RetrieveEthUsdPrice is used to retrieve eths usd pricing
+// RetrieveEthUsdPrice is used to retrieve the ETH->USD price
 func RetrieveEthUsdPrice() (float64, error) {
 	client := http.DefaultClient
 	client.Timeout = time.Minute
@@ -54,40 +53,4 @@ func RetrieveEthUsdPrice() (float64, error) {
 	}
 
 	return f, nil
-}
-
-// RetrieveEthUsdPriceNoDecimals is used to retrieve the eth usd price without decimals
-// TODO: add error handling
-func RetrieveEthUsdPriceNoDecimals() (int64, error) {
-	response, err := http.Get("https://api.coinmarketcap.com/v1/ticker/ethereum/")
-	if err != nil {
-		return 0, err
-	}
-
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		return 0, err
-	}
-	var decode []Response
-	err = json.Unmarshal(body, &decode)
-	if err != nil {
-		return 0, err
-	}
-
-	f, _ := strconv.ParseFloat(decode[0].PriceUsd, 64)
-
-	bigF := big.NewFloat(f)
-	bigFloatString := bigF.String()
-	var s string
-	for _, v := range bigFloatString {
-		if string(v) == "." {
-			break
-		}
-		s += string(v)
-	}
-	i, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		return 0, err
-	}
-	return i, nil
 }

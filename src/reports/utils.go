@@ -9,6 +9,7 @@ import (
 	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
 )
 
+// ParseETHUSD is used to retrieve the latest ETH->USD price
 func ParseETHUSD() (float64, error) {
 	ethUSD, err := types.RetrieveEthUsdPrice()
 	if err != nil {
@@ -17,6 +18,7 @@ func ParseETHUSD() (float64, error) {
 	return ethUSD, nil
 }
 
+// ParseUSDCAD is used to retrieve the latest USD -> CAD conversion ratio
 func ParseUSDCAD() (float64, error) {
 	client := http.DefaultClient
 	client.Timeout = time.Minute

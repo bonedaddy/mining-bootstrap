@@ -7,6 +7,7 @@ import (
 
 var defaultFilePath = "/home/solidity/mining_config.json"
 
+// Config holds our various configuration parameters
 type Config struct {
 	Coin           string `json:"coin"`
 	URL            string `json:"url"`
@@ -14,6 +15,7 @@ type Config struct {
 	SendgridAPIKey string `json:"sendgrid_api_key"`
 }
 
+// LoadConfigFromFile is used to load our config from a file
 func LoadConfigFromFile(filePath string) (*Config, error) {
 	if filePath == "" {
 		filePath = defaultFilePath

@@ -2,7 +2,6 @@ package reports
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -19,11 +18,13 @@ The idea is to create an easy to use system that can be used by farm operators t
 */
 
 const (
+	// USDAPI is the URL We use to query for USD->CAD conversion
 	USDAPI = "https://free.currencyconverterapi.com/api/v5/convert?q=USD_CAD&compact=y"
 )
 
 var methodList = []string{"24hour_credit", "credit"}
 
+// Manager is a helper struct used for report generation
 type Manager struct {
 	Config         *config.Config   `json:"config"`
 	EthUSD         float64          `json:"eth_usd"` // keeps track of the ETH->USD conversion ratio
@@ -31,6 +32,7 @@ type Manager struct {
 	SendgridClient *sendgrid.Client `json:"sendgrid_client"`
 }
 
+// GenerateReportManagerFromFile is used to generate our helper struct from the config file
 func GenerateReportManagerFromFile(path string) (*Manager, error) {
 	cfg, err := config.LoadConfigFromFile(path)
 	if err != nil {
@@ -66,13 +68,14 @@ func (m *Manager) CreateReportAndSend(method string) error {
 			return fmt.Errorf("unacceptable return code, expected 200 got %v", resp)
 		}
 	case "credit":
-		break
+		return fmt.Errorf("not yet supported")
 	default:
-		return errors.New(fmt.Sprint("invalid method must be one of ", methodList))
+		return fmt.Errorf("invalid method must be one of %v", methodList)
 	}
 	return nil
 }
 
+// GetRecentCredits24Hours is use the get the number of "credits" (credits being number of coins) mined in the last 24 hour period.
 func (m *Manager) GetRecentCredits24Hours() (*types.RecentCredits, error) {
 	s := "getdashboarddata"
 	m.FormatURL(s)
@@ -110,6 +113,7 @@ func (m *Manager) GetRecentCredits24Hours() (*types.RecentCredits, error) {
 	return &credits, nil
 }
 
+// GetRecentCredits is used to get the total number of credits mined over the last 2 week period, broken down into day intervals
 func (m *Manager) GetRecentCredits() (*[]types.RecentCredits, error) {
 	s := "getdashboarddata"
 	m.FormatURL(s)
@@ -147,10 +151,12 @@ func (m *Manager) GetRecentCredits() (*[]types.RecentCredits, error) {
 	return &credits, nil
 }
 
+// FormatURL is a helper method used to format a URL with the given config information
 func (m *Manager) FormatURL(action string) {
 	m.Config.URL = fmt.Sprintf(m.Config.URL, m.Config.Coin, action, m.Config.APIKey)
 }
 
+// Send24HourEmail is a function used to send report information for the last 24 hour period
 func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue float64) (int, error) {
 	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v<br>CAD Value: %v", ethMined, usdValue, cadValue)
 	from := mail.NewEmail("stake-sendgrid-api", "sgapi@rtradetechnologies.com")
@@ -167,6 +173,7 @@ func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue float64) (int, er
 	return response.StatusCode, nil
 }
 
+// SendTemplateEmail is a function that can be used to send any kind of report email
 func (m *Manager) SendTemplateEmail(args map[string]string) (int, error) {
 	content := args["content"]
 	contentType := args["content_type"]
