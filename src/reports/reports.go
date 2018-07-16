@@ -81,7 +81,7 @@ func (m *Manager) GetRecentCredits24HoursAndSave() error {
 	if err != nil {
 		return err
 	}
-	_, err = m.Send24HourEmail(ethMinedString, usdValueString, cadValueString)
+	_, err = m.Send24HourEmail(date, ethMinedString, usdValueString, cadValueString)
 	if err != nil {
 		return err
 	}
@@ -170,10 +170,10 @@ func (m *Manager) FormatURL(action string) {
 }
 
 // Send24HourEmail is a function used to send report information for the last 24 hour period
-func (m *Manager) Send24HourEmail(ethMined, usdValue, cadValue string) (int, error) {
+func (m *Manager) Send24HourEmail(date, ethMined, usdValue, cadValue string) (int, error) {
 	content := fmt.Sprintf("<br>Eth Mined: %v<br>USD Value: %v<br>CAD Value: %v", ethMined, usdValue, cadValue)
 	from := mail.NewEmail("stake-sendgrid-api", "sgapi@rtradetechnologies.com")
-	subject := "Ethereum Mining Report"
+	subject := fmt.Sprintf("Ethereum Mining Report - %s", date)
 	to := mail.NewEmail("Mining Reports", "postables@rtradetechnologies.com")
 
 	mContent := mail.NewContent("text/html", content)
