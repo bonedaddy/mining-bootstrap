@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 )
 
-var urlTemplate = "https://%s.miningpoolhub.com/index.php?page=api&action=%s&api_key=%s"
 var defaultFilePath = "/home/solidity/mining_config.json"
 
 type Config struct {
