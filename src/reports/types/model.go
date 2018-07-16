@@ -1,6 +1,11 @@
 package types
 
-import "github.com/jinzhu/gorm"
+import (
+	"errors"
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 type EthReports struct {
 	gorm.Model
@@ -9,6 +14,8 @@ type EthReports struct {
 	CADValue string `gorm:"type:varchar(255)" json:"cad_value"`
 	USDValue string `gorm:"type:varchar(255)" json:"usd_value"`
 }
+
+var nilTime time.Time
 
 type EthReportsManager struct {
 	DB *gorm.DB
@@ -26,9 +33,12 @@ func (erm *EthReportsManager) FindByDate(date string) (*EthReports, error) {
 	return report, nil
 }
 func (erm *EthReportsManager) AddNewEntry(date, eth, cad, usd string) error {
-	_, err := erm.FindByDate(date)
+	rep, err := erm.FindByDate(date)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return err
+	}
+	if err == nil && rep.CreatedAt != nilTime {
+		return errors.New("entry already in database with given date")
 	}
 	report := &EthReports{
 		Date:     date,

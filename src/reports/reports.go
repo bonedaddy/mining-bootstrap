@@ -16,8 +16,8 @@ import (
 )
 
 /*
-This is used to handle automated mining reports for cryptocurrency mining farms
-The idea is to create an easy to use system that can be used by farm operators to create accurate book reports for the tax man
+Utilizing this package one can easily generate reports about their cryptocurrency mining income when utilizing miningpoolhub.
+that can parse this data for non solo miners. Utilizing MPHs API, you can easily generate mining income reports for any of the supported currencies.
 */
 
 const (
@@ -54,10 +54,7 @@ func GenerateReportManagerFromFile(path string) (*Manager, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = dbm.RunMigrations()
-	if err != nil {
-		return nil, err
-	}
+	dbm.RunMigrations()
 	return &Manager{Config: cfg, EthUSD: eth, UsdCad: usd, SendgridClient: sendgrid.NewSendClient(cfg.SendgridAPIKey), DB: dbm.DB}, nil
 
 }

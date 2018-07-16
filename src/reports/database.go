@@ -25,11 +25,8 @@ func Initialize(dbPass, dbURL, dbUser string) (*DatabaseManager, error) {
 	return &dbm, nil
 }
 
-func (dbm *DatabaseManager) RunMigrations() error {
-	if check := dbm.DB.AutoMigrate(EthReports); check.Error != nil {
-		return check.Error
-	}
-	return nil
+func (dbm *DatabaseManager) RunMigrations() {
+	dbm.DB.AutoMigrate(EthReports)
 }
 
 // OpenDBConnection is used to create a database connection
