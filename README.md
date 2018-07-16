@@ -1,9 +1,14 @@
-# V4 (WIP)
+# Mining Bootstrap
 
-Collection of scripts, and various utilities used to setup, manage, and monitor mining rigs.
-Each mining rig is presumed to be running Ubuntu 16.04LTS Desktop
+In this repository you'll find a collection of docs, scripts, and various programs designed to assist mining farm operators.
+Scripts vary from ones to monitor your mining rigs, all the way up to report generation for the tax man.
 
-# Setup Process
+
+# Report Generation
+
+Currently reports are supported only for miningpoolhub. The idea behind the reports package is that every 24 hours, you can receive an email detailing how much eth was mined in a 24 hour period, and the USD/CAD evaluation of the mined ethereum. 
+
+# Rig Setup Process
 
 Install Ubuntu 16.04LTS Desktop x86_64 edition, without your GPUs plugged in. After installation shutdown, connect your GPUs, and power on again
 
