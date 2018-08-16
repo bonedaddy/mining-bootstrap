@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-06-01T00:48:50Z</date>
+    <date>2018-08-16T03:07:58Z</date>
     <groups>
         <group>
             <name>Mining Rigs</name>
@@ -20,12 +20,49 @@
             <applications/>
             <items>
                 <item>
+                    <name>Hash Rates - Ethhash</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>ethminer.stats.megahashes</key>
+                    <delay>1m</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications/>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
                     <name>NVIDIA GPU 0 Power Draw</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[0]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -62,7 +99,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[1]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -99,7 +136,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[2]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -136,7 +173,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[3]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -173,7 +210,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[4]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -210,7 +247,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[5]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -247,7 +284,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[6]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -284,7 +321,44 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[7]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>W</units>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications/>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>NVIDIA GPU 8 Power Draw</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>gpu.power.draw[8]</key>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -321,7 +395,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[9]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -358,7 +432,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[10]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -395,7 +469,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.power.draw[11]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -432,7 +506,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[0]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -469,7 +543,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[1]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -506,7 +580,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[2]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -543,7 +617,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[3]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -580,7 +654,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[4]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -617,7 +691,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[5]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -654,7 +728,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[6]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -691,7 +765,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[7]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -728,7 +802,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[8]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -765,7 +839,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[9]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -802,7 +876,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[10]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -839,7 +913,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>gpu.temp[11]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -871,14 +945,153 @@
                     <master_item/>
                 </item>
             </items>
-            <discovery_rules/>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Test</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>gpu.fan.speed[*]</key>
+                    <delay>30s</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <description/>
+                    <item_prototypes/>
+                    <trigger_prototypes/>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                </discovery_rule>
+            </discovery_rules>
             <httptests/>
             <macros/>
             <templates/>
-            <screens/>
+            <screens>
+                <screen>
+                    <name>Rig Statistics</name>
+                    <hsize>2</hsize>
+                    <vsize>2</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <style>0</style>
+                            <url/>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <resource>
+                                <name>GPU Temps</name>
+                                <host>Mining Rigs</host>
+                            </resource>
+                            <max_columns>3</max_columns>
+                            <application/>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <style>0</style>
+                            <url/>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <resource>
+                                <name>GPU Power Draw</name>
+                                <host>Mining Rigs</host>
+                            </resource>
+                            <max_columns>3</max_columns>
+                            <application/>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+            </screens>
         </template>
     </templates>
     <triggers>
+        <trigger>
+            <expression>{Mining Rigs:ethminer.stats.megahashes.last(,10m)}&lt;230</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Ethereum Hash Power Low</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Total ethereum hash rate has dropped below allowed low of 230 and is {ITEM.VALUE1}</description>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Mining Rigs:gpu.power.draw[0].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[1].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[2].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[3].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[4].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[5].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[6].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[7].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[8].min(#10)}&lt;90 or&#13;
+{Mining Rigs:gpu.power.draw[9].min(#10)}&lt;90 or&#13;
+{Mining Rigs:gpu.power.draw[10].min(#10)}&lt;90 or &#13;
+{Mining Rigs:gpu.power.draw[11].min(#10)}&lt;90</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>GPU Power Draw Low</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>A GPU was detected to have a power draw of 90 or less.</description>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies>
+                <dependency>
+                    <name>Ethereum Hash Power Low</name>
+                    <expression>{Mining Rigs:ethminer.stats.megahashes.last(,10m)}&lt;230</expression>
+                    <recovery_expression/>
+                </dependency>
+            </dependencies>
+            <tags/>
+        </trigger>
         <trigger>
             <expression>{Mining Rigs:gpu.temp[0].last()}&gt;79</expression>
             <recovery_mode>0</recovery_mode>
@@ -1385,6 +1598,38 @@
                     <item>
                         <host>Mining Rigs</host>
                         <key>gpu.temp[11]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Hash Rates - Ethhash</name>
+            <width>900</width>
+            <height>200</height>
+            <yaxismin>0.0000</yaxismin>
+            <yaxismax>100.0000</yaxismax>
+            <show_work_period>1</show_work_period>
+            <show_triggers>1</show_triggers>
+            <type>0</type>
+            <show_legend>1</show_legend>
+            <show_3d>0</show_3d>
+            <percent_left>0.0000</percent_left>
+            <percent_right>0.0000</percent_right>
+            <ymin_type_1>0</ymin_type_1>
+            <ymax_type_1>0</ymax_type_1>
+            <ymin_item_1>0</ymin_item_1>
+            <ymax_item_1>0</ymax_item_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <drawtype>2</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Mining Rigs</host>
+                        <key>ethminer.stats.megahashes</key>
                     </item>
                 </graph_item>
             </graph_items>
