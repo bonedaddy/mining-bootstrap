@@ -22,7 +22,8 @@ echo "[INFO] Installing git"
 sudo apt install git -y
 echo "[INFO] Installing vim"
 sudo apt install vim -y
-echo "[INFO] Downloading mining-bootstrap repo"
+echo "[INFO] Installing screen"
+sudo apt install screen -y
 
 cd ~ || exit
 

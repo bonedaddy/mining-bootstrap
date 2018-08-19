@@ -16,3 +16,7 @@ Run `scripts/install.sh` which will install nvidia drivers, as well as upgrade a
 
 Run `scripts/zabbix_agent_install.sh`  which will install zabbix agent. 
 Copy `zabbix/userparameter_gpu.conf` to `/etc/zabbix/zabbix_agentd.d` and run `systemctl restart zabbix-agent`
+
+# Ethminer troubleshooting
+
+https://github.com/ethereum-mining/ethminer/issues/314

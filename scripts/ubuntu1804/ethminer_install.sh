@@ -9,9 +9,9 @@ git clone https://github.com/ethereum-mining/ethminer.git
 cd ethminer || exit
 
 echo "[INFO] Installing dbus development libraries"
-sudo apt install libdbus-1-dev
+sudo apt install libdbus-1-dev -y
 echo "[INFO] Installing cmake"
-sudo apt install cmake
+sudo apt install cmake -y
 
 echo "[INFO] Running GCC fix for ubuntu 18.04"
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 10
