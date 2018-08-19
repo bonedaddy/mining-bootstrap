@@ -23,8 +23,8 @@ echo "[INFO] Creating build dir"
 mkdir build
 cd build || exit
 
-echo "[INFO] Configuring cmake with options -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DETHDBUS=ON -DBINKERN=OFF"
-cmake .. -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DETHDBUS=ON -DBINKERN=OFF
+echo "[INFO] Configuring cmake with options -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DBINKERN=OFF"
+cmake .. -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DBINKERN=OFF
 
 echo "[INFO] Building ethminer project"
 cmake --build .
