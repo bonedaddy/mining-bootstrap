@@ -24,7 +24,12 @@ mkdir build
 cd build || exit
 
 echo "[INFO] Configuring cmake with options -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DBINKERN=OFF"
-cmake .. -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DBINKERN=OFF
+# we are omitting any special builds right now as there is a bug
+# see the issue https://github.com/ethereum-mining/ethminer/issues/1473
+cmake .. # -DETHASHCUDA=ON -DETHASHCL=OFF -DAPICORE=ON -DBINKERN=OFF
 
 echo "[INFO] Building ethminer project"
 cmake --build .
+
+echo "[INFO] Installing ethminer"
+sudo make install
