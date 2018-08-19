@@ -30,13 +30,9 @@ echo "[INFO] Beginning nvidia driver installation"
 RECOMMENDED_VERSION=$(sudo ubuntu-drivers devices | grep -i driver | grep -i nvidia | awk '{print $3}')
 echo "[INFO] Installing driver version $RECOMMENDED_VERSION"
 sudo apt install "$RECOMMENDED_VERSION" -y
-
-if [[ "$?" != "0" ]]; then
-    echo "[ERROR] Installation of nvidia drivers failed"
-    exit 1
-fi
-
-echo "[INFO] Nvidia drivers installed. Setting default boot target to multi-user.target"
+echo "[INFO] Nvidia drivers installed. installing cuda toolkit"
+sudo apt install nvidia-cuda-toolkit
+echo "[INFO] Setting default boot target to multi-user.target"
 sudo systemctl set-default multi-user.target
 echo "[INFO] Ubuntu 18.04 mining bootstrap finished, sleeping for 15 seconds before rebooting"
 echo "[INFO] Hit CTRL+C to cancel reboot"
