@@ -1,12 +1,8 @@
 #! /bin/bash
 
-# Fresh Install Setup
-# 1) Install Ubuntu 18.04 Desktop first, without any GPU's installed
-# 2) After instalation of the system, boot into the system, and confirm initial setup instructions
-# 3) Shutdown the machine, plug in your GPU, and start the machine
-# 4) After starting up, run this script and after reboot verify installation
-# 5) Shutdown, plug the remaining GPUs in and you'll be good to go
-
+# This installation method requires at least one GPU being plugged into the system
+# before you run this script so that we may utilize the ubuntu-drivers utility
+# to install the recommended version for each rig.
 
 DISTRO=$(lsb_release -sc)
 if [[ "$DISTRO" != "bionic" ]]; then
