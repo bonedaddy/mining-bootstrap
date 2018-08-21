@@ -28,3 +28,4 @@ zabbix related files to assist with rig monitoring
 ### Ethereum Mining Troubleshooting
 
 * [low hash rate gtx 1060](https://github.com/ethereum-mining/ethminer/issues/314)
+
