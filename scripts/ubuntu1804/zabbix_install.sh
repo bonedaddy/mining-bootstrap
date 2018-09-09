@@ -16,8 +16,11 @@ fi
 
 if [[ "$MODE" == "server" ]]; then
     sudo apt install zabbix-server-pgsql zabbix-frontend-php php-pgsql zabbix-agent  -y
+    sudo systemctl enable zabbix-server
+    sudo systemctl enable zabbix-agent
 else
     sudo apt install zabbix-agent -y
+    sudo systemctl enable zabbix-agent
 fi
 
 if [[ "$MODE" == "server" ]]; then
