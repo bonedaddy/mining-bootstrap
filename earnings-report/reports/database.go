@@ -3,7 +3,7 @@ package reports
 import (
 	"fmt"
 
-	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/types"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )

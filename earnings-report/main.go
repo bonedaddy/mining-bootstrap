@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/RTradeLtd/mining-bootstrap/src/reports"
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports"
 )
 
 func main() {
