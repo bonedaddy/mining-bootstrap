@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/types"
 )
 
 // ParseETHUSD is used to retrieve the latest ETH->USD price

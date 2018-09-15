@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/RTradeLtd/mining-bootstrap/src/reports/config"
-	"github.com/RTradeLtd/mining-bootstrap/src/reports/types"
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/config"
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/types"
 	"github.com/jinzhu/gorm"
 	sendgrid "github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"

@@ -6,10 +6,16 @@
 
 DISTRO=$(lsb_release -sc)
 LATEST_NVIDIA_VERSION="yes"
+SERVER="YES"
 
 if [[ "$DISTRO" != "bionic" ]]; then
     echo "[ERROR] Installation only supported for 18.04"
     exit 1
+fi
+
+if [[ "$SERVER" == "YES" ]]; then
+   echo "[INFO] Installing ubuntu drivers"
+   sudo apt install ubuntu-drivers-common -y
 fi
 
 echo "[INFO] Updating system"
