@@ -1,4 +1,4 @@
-# Mining Bootstrap
+# Mining Bootstrap [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FRTradeLtd%2Fmining-bootstrap.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FRTradeLtd%2Fmining-bootstrap?ref=badge_shield)
 
 In this repository you'll find a collection of docs, scripts, and various programs designed to assist mining farm operators.
 
