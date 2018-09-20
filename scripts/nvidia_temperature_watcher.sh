@@ -1,9 +1,7 @@
 #! /bin/bash
 
-# particular query to run
-QUERY_MODE="$1"
 # the gpu to pull metrics from
-SELECTED_GPU_NUMBER="$2"
+SELECTED_GPU_NUMBER="$1"
 # retrieves the total number of GPUs
 GPU_COUNT=$(nvidia-smi --query-gpu=count --format=csv,noheader | head -n 1)
 let MAX=$(($GPU_COUNT-1))
