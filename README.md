@@ -5,7 +5,12 @@ In this repository you'll find a collection of docs, scripts, and various progra
 ## earnings-report
 
 Utility is used to parse and process information from MiningPoolHub to generate reports for your financial books as a mining operator.
+
 Additional pools will be added over time.
+
+## heaty-boi
+
+Your dependable, friendly heaty boi. Used to regulate GPU temperatures automatically without human intervention
 
 ## scripts
 
