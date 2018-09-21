@@ -5,69 +5,49 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
-	"os"
 	"os/exec"
 	"strconv"
 	"time"
 )
 
-/*
-rtrade@condo2-floor2-rig4:~$ nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits -q -i 1
-43
-*/
-
-const (
-	argCount = 2
-)
-
 func main() {
-	if len(os.Args) > argCount || len(os.Args) < argCount {
-		log.Fatal("bad arg count")
-	}
-	number := os.Args[1]
 	for {
-		records, err := getGPUTemp(number)
+		records, err := getGPUTemp()
 		if err != nil {
 			log.Fatal(err)
 		}
-		for _, row := range records {
-			index := row[0]
-			temp := row[1]
-			fmt.Printf("GPU %s TEMP %sC\n", index, temp)
-			tempInt, err := strconv.ParseInt(temp, 10, 64)
-			if err != nil {
-				log.Fatal(err)
-			}
-			if tempInt >= 80 {
-				fmt.Println("gpu temp above 80, stopping miner")
-				_, err := exec.Command(
-					"systemctl",
-					"stop",
-					"miner",
-				).Output()
-				if err != nil {
-					log.Fatal(err)
-				}
-				fmt.Println("miner stopped, waiting for chips to cool")
-				fmt.Println("sleeping for 2 minutes")
-				time.Sleep(time.Minute * 2)
-				fmt.Println("sleep over, resuming miner")
-				_, err = exec.Command(
-					"systemctl",
-					"start",
-					"miner",
-				).Output()
-				if err != nil {
-					log.Fatal(err)
-				}
-				fmt.Println("miner resumed")
-				break
-			}
+		if err := parseRecords(records); err != nil {
+			log.Fatal(err)
 		}
 	}
 }
 
-func getGPUTemp(gpuNumber string) ([][]string, error) {
+func parseRecords(records [][]string) error {
+	for _, row := range records {
+		index := row[0]
+		temp := row[1]
+		fmt.Printf("GPU %s has a temp of %sC\n", index, temp)
+		tempInt, err := strconv.ParseInt(temp, 10, 64)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if tempInt >= 80 {
+			fmt.Println("gpu temp above 80, stopping miner")
+			if err := stopMiner(); err != nil {
+				return err
+			}
+			fmt.Println("miner stopped, sleeping to cool chips")
+			time.Sleep(time.Minute * 2)
+			fmt.Println("sleep over, resumining miner")
+			if err := startMiner(); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func getGPUTemp() ([][]string, error) {
 	out, err := exec.Command(
 		"nvidia-smi",
 		"--query-gpu=index,temperature.gpu",
@@ -80,4 +60,22 @@ func getGPUTemp(gpuNumber string) ([][]string, error) {
 	csvReader.TrimLeadingSpace = true
 	records, err := csvReader.ReadAll()
 	return records, nil
+}
+
+func stopMiner() error {
+	_, err := exec.Command(
+		"systemctl",
+		"stop",
+		"miner",
+	).Output()
+	return err
+}
+
+func startMiner() error {
+	_, err := exec.Command(
+		"systemctl",
+		"start",
+		"miner",
+	).Output()
+	return err
 }
