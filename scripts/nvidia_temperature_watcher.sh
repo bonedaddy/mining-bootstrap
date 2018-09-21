@@ -20,14 +20,15 @@ fi
 
 MAX_TEMP=80
 COUNTER=0
+SLEEP_TIME=900
 while [  $COUNTER -lt "$GPU_COUNT" ]; do
     TEMP=$(nvidia-smi -q -i "$COUNTER" | grep -i "GPU Current Temp" | awk -F ':' '{print $2}' | awk '{print $1}')
     echo "[INFO] Temperature for GPU $COUNTER is $TEMP"
     if [[ "$TEMP" -ge "$MAX_TEMP" ]]; then
         echo "[WARN] GPU Temperature is 80C or above, shutting down miner"
         systemctl stop miner
-        echo "[WARN] Sleeping for 15 minutes to cool chips down"
-        sleep 1800
+        echo "[WARN] Sleeping for $SLEEP_TIME seconds to cool chips down"
+        sleep "$SLEEP_TIME"
         echo "[INFO] Starting up miners"
         systemctl start miner
     fi
