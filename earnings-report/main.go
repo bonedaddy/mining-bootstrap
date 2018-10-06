@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/ethermine"
+
 	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/mph"
 )
 
@@ -21,14 +23,14 @@ func main() {
 		log.Fatal("RUN_MODE is not set")
 	}
 	switch runMode {
-	case "report", "report-save":
+	case "report", "report-save", "payouts":
 		break
 	default:
-		err := errors.New("RUN_MODE must be 'report' or 'report-save'")
+		err := errors.New("RUN_MODE must be 'report' or 'report-save' or 'payouts'")
 		log.Fatal(err)
 	}
-	if len(os.Args) > 2 || len(os.Args) < 2 {
-		err := errors.New("invalid argument provided must be: 'mph'")
+	if len(os.Args) > 3 || len(os.Args) < 2 {
+		err := errors.New("invalid invocation. ./earnings-reports [mph|etheremine] <miner>")
 		log.Fatal(err)
 	}
 	pool := os.Args[1]
@@ -49,13 +51,34 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+			fmt.Println("generating and displaying 24 hour credit report")
 			credits, err := m.GetRecentCredits24Hours()
 			if err != nil {
 				log.Fatal(err)
 			}
 			fmt.Printf("Credits received:\n%+v\n", credits)
 		}
-
+	case "ethermine":
+		if runMode == "payouts" {
+			if len(os.Args) > 3 || len(os.Args) < 3 {
+				err := errors.New("not enough arguments provided for ethermine payouts report")
+				log.Fatal(err)
+			}
+			m, err := ethermine.GenerateReportManagerFromFile(configPath, false)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("generating and displaying payout data")
+			miner := os.Args[2]
+			payouts, err := m.GetPayouts(miner)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("displaying payouts")
+			for _, v := range *payouts {
+				fmt.Printf("%+v\n", v)
+			}
+		}
 	}
 
 }
