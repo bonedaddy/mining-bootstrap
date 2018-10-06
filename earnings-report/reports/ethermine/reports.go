@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/config"
 	"github.com/RTradeLtd/mining-bootstrap/earnings-report/reports/database"
@@ -62,7 +63,7 @@ func GenerateReportManagerFromFile(path string, initializeDatabase bool) (*Manag
 }
 
 // GetPayouts is used to get payouts from ethermine
-func (m *Manager) GetPayouts(minerAddress string) (*[]Payout, error) {
+func (m *Manager) GetPayouts(minerAddress string) ([]Payout, error) {
 	url := fmt.Sprintf("%s/miner/%s/payouts", m.Config.URL, minerAddress)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -85,5 +86,17 @@ func (m *Manager) GetPayouts(minerAddress string) (*[]Payout, error) {
 	if err = json.Unmarshal(marshaled, &data); err != nil {
 		return nil, err
 	}
-	return &data, nil
+	return data, nil
+}
+
+// PrettyPrintPayout is used to print a payout in a friendly manner
+func (m *Manager) PrettyPrintPayout(payout *Payout) {
+	paidOn := time.Unix(payout.PaidOn, 0)
+	start := time.Unix(payout.Start, 0)
+	end := time.Unix(payout.End, 0)
+	eth := utils.BaseWeiToBaseEth(float64(payout.Amount))
+	fmt.Printf("Payment amount: %vETH\n", eth)
+	fmt.Println("Paid on: ", paidOn)
+	fmt.Println("Payout cycle started: ", start)
+	fmt.Println("Payout cycle ended: ", end)
 }

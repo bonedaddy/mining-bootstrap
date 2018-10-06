@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"io/ioutil"
+	"math/big"
 	"net/http"
 	"time"
 
@@ -50,4 +51,14 @@ func ParseUSDCAD() (float64, error) {
 		return 0, err
 	}
 	return val.ExchangeRate, nil
+}
+
+// BaseWeiToBaseEth is used to convert a number from it's wei representation to it's eth representation
+func BaseWeiToBaseEth(x float64) float64 {
+	exp := new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
+	xBig := big.NewFloat(x)
+	floatExp := float64(exp.Int64())
+	div := new(big.Float).Quo(xBig, big.NewFloat(floatExp))
+	f, _ := div.Float64()
+	return f
 }

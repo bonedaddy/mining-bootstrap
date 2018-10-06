@@ -75,8 +75,9 @@ func main() {
 				log.Fatal(err)
 			}
 			fmt.Println("displaying payouts")
-			for _, v := range *payouts {
-				fmt.Printf("%+v\n", v)
+			for _, v := range payouts {
+				fmt.Println("-----------")
+				m.PrettyPrintPayout(&v)
 			}
 		}
 	}

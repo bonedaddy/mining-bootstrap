@@ -20,8 +20,11 @@ func TestReport(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(*payouts) == 0 {
+	if len(payouts) == 0 {
 		err := errors.New("no payouts retrieved")
+		t.Fatal(err)
+	}
+	if err = manager.PrettyPrintPayout(&payouts[0]); err != nil {
 		t.Fatal(err)
 	}
 }
