@@ -11,7 +11,7 @@ var defaultFilePath = "/home/solidity/mining_config.json"
 type Config struct {
 	Coin           string `json:"coin"`
 	URL            string `json:"url"`
-	APIKey         string `json:"api_key"`
+	MPHAPIKey      string `json:"mph_api_key"`
 	SendgridAPIKey string `json:"sendgrid_api_key"`
 	DBURL          string `json:"db_url"`
 	DBUser         string `json:"db_user"`

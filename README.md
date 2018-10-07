@@ -4,8 +4,16 @@ In this repository you'll find a collection of docs, scripts, and various progra
 
 ## earnings-report
 
-Utility is used to parse and process information from MiningPoolHub to generate reports for your financial books as a mining operator.
+Utility is used to parse and process information from mining pools to keep your financial books up to date. This is particularly useful in Canada for large scale mining farms. In Canada if you are small scale, and not operating under a business mining profits are tax free (this isn't official tax advice, please consult a paid tax proffessional for legal advice) however large scale, and as a busines this is not the case. Using `earnings-report` you can confidently ensure your financial books are kept up to date.
 
+Support pools:
+
+* [x] MiningPoolHub
+* [x] Ethermine (ETC+ETH)
+* [x] Ethpool
+* [x] Flypool (ZCash)
+
+Please consult the readme within `earnings-report` for more information
 Additional pools will be added over time.
 
 ## heaty-boi
